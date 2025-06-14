@@ -5,6 +5,7 @@ namespace App\UseCases\User;
 use Throwable;
 use App\UseCases\BaseUseCase;
 use App\Repositories\User\Find;
+// Os nomes das variáveis estão muito genéricos, como 'c', o que dificulta a compreensão do código. É importante usar nomes descritivos e concretos que reflitam o propósito dos dados, facilitando a leitura, manutenção e colaboração entre desenvolvedores.
 
 class show extends BaseUseCase
 {

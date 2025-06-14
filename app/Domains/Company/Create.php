@@ -36,7 +36,7 @@ class Create extends BaseDomain
         if (!(new CanUseDocumentNumber($this->documentNumber))->handle()) {
             throw new InternalErrorException(
                 'Não é possível adicionar o CNPJ informado',
-                0
+                422 #Usar o Unprocessable Entity indica que o servidor recebeu uma requisição com dados válidos na sintaxe, mas não conseguiu processá-los devido a problemas com o conteúdo da requisição
             );
         }
     }

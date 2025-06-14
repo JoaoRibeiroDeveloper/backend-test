@@ -14,6 +14,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class Handler extends ExceptionHandler
 {
@@ -66,7 +67,8 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof NotFoundHttpException) {
+        # Adicionar o RouteNotFoundException para não deixar passar como erro 500
+        if (in_array(get_class($exception), [NotFoundHttpException::class, RouteNotFoundException::class])) {
             $response = new DefaultResponse(
                 null,
                 false,
@@ -133,7 +135,7 @@ class Handler extends ExceptionHandler
             );
         }
 
-        dump($exception);
+        //dump($exception); // Remover o dump para não exibir dados sensíveis nos erros, como em casos de erro interno no servidor ou falhas no banco de dados, que podem expor informações críticas.
 
         $response = new DefaultResponse(
             null,

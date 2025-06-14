@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRequest extends FormRequest
 {
+
+    //É necessário implementar validações básicas, como verificar se o documento está no formato correto e assegurar que o campo 'name' seja do tipo string. Isso previne o envio de dados inválidos para o sistema, garantindo a integridade das informações e evitando erros durante o processamento.
     /**
      * Get the validation rules that apply to the request.
      *

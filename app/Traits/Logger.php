@@ -45,15 +45,16 @@ trait Logger
      *
      * @return array
      */
+    //Para permitir que os dados possam ser nulos, deve-se adicionar o operador de nullabilidade (?) antes da tipagem nas propriedades ou parâmetros. Isso evita erros de tipo quando valores opcionais ou ausentes forem retornados, garantindo maior flexibilidade e segurança no código.
     public function createLog(
         string $description,
         string $action,
         $value,
-        Throwable $error = null,
-        string $idUser = null,
-        string $idCompany = null,
-        string $entityId = null,
-        string $entity = null,
+        ?Throwable $error = null,
+        ?string $idUser = null,
+        ?string $idCompany = null,
+        ?string $entityId = null,
+        ?string $entity = null,
         string $logLevel = 'DEBUG',
         string $logType = 'SERVER',
         Carbon $requestDatetime = null,
@@ -131,12 +132,13 @@ trait Logger
      *
      * @return void
      */
+    //Para permitir que os dados possam ser nulos, deve-se adicionar o operador de nullabilidade (?) antes da tipagem nas propriedades ou parâmetros. Isso evita erros de tipo quando valores opcionais ou ausentes forem retornados, garantindo maior flexibilidade e segurança no código.
     public function defaultErrorHandling(
         Throwable $exception,
         $data = null,
-        string $idEntity = null,
-        string $entity = null,
-        string $level = 'ERROR'
+        ?string $idEntity = null,
+        ?string $entity = null,
+        ?string $level = 'ERROR'
     ): void {
         // Caso seja um erro esperado BaseException, continua sem criar log
         // de erro inesperado
@@ -163,7 +165,7 @@ trait Logger
             $level
         );
 
-        dump($exception);
+        //dump($exception);  // Remover o dump para não exibir dados sensíveis nos erros, como em casos de erro interno no servidor ou falhas no banco de dados, que podem expor informações críticas.
 
         // Para evitar propagação de log duplicado, o erro é propagado como
         // BaseException

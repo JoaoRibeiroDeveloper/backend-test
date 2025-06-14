@@ -43,13 +43,16 @@ class CompanyController extends Controller
      */
     public function update(UpdateRequest $request): JsonResponse
     {
+        //O controller está chamando diretamente o domínio da aplicação, mas o ideal é que ele invoque um Use Case responsável por orquestrar a lógica específica do caso de uso. Isso melhora a separação de responsabilidades, facilita a manutenção e garante que a regra de negócio esteja isolada da camada de controle.
         $dominio = (new UpdateDomain(
             Auth::user()->company_id,
             $request->name,
         ))->handle();
         (new CompanyUpdate($dominio))->handle();
 
-        $resposta = Company::find(Auth::user()->company_id)->first()->toArray();
+
+        //Aqui há um problema grave de segurança: o uso do first() após uma busca com find() pode retornar a primeira empresa do banco, mesmo que ela não corresponda ao UUID fornecido. Isso pode resultar no retorno de dados de uma empresa incorreta, expondo informações confidenciais indevidamente."
+        $resposta = Company::find(Auth::user()->company_id)->toArray();
 
         return $this->response(
             new DefaultResponse(

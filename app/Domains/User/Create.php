@@ -91,7 +91,7 @@ class Create extends BaseDomain
         if (!(new CanUseEmail($this->email))->handle()) {
             throw new InternalErrorException(
                 'Não é possível adicionar o E-mail informado',
-                0
+                422 #Usar o Unprocessable Entity indica que o servidor recebeu uma requisição com dados válidos na sintaxe, mas não conseguiu processá-los devido a problemas com o conteúdo da requisição
             );
         }
     }
@@ -106,7 +106,7 @@ class Create extends BaseDomain
         if (!(new CanUseDocumentNumber($this->documentNumber))->handle()) {
             throw new InternalErrorException(
                 'Não é possível adicionar o CPF informado',
-                0
+                422 #Usar o Unprocessable Entity indica que o servidor recebeu uma requisição com dados válidos na sintaxe, mas não conseguiu processá-los devido a problemas com o conteúdo da requisição
             );
         }
     }
@@ -121,7 +121,7 @@ class Create extends BaseDomain
         if (!in_array($this->type, ['USER', 'VIRTUAL', 'MANAGER'])) {
             throw new InternalErrorException(
                 'Não é possível adicionar o tipo informado',
-                0
+                422 #Usar o Unprocessable Entity indica que o servidor recebeu uma requisição com dados válidos na sintaxe, mas não conseguiu processá-los devido a problemas com o conteúdo da requisição
             );
         }
     }
